@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { categories, getCategoryStats } from "@/lib/mock-data";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, CircleDot, Grid3X3 } from "lucide-react";
+import { ArrowRight, Activity, Layers } from "lucide-react";
 
 export default function LandingPage() {
   const totalOpen = categories.reduce((sum, c) => sum + getCategoryStats(c).openItems, 0);
@@ -47,14 +47,14 @@ export default function LandingPage() {
               {/* Stats - Desktop */}
               <div className="hidden sm:flex items-center gap-6 pr-4 border-r border-border">
                 <div className="flex items-center gap-2">
-                  <CircleDot className="h-4 w-4 text-primary" />
+                  <Activity className="h-4 w-4 text-primary" />
                   <div className="flex flex-col">
                     <span className="text-xs text-muted-foreground">Open</span>
                     <span className="text-sm font-semibold tabular-nums text-foreground">{totalOpen}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Grid3X3 className="h-4 w-4 text-muted-foreground" />
+                  <Layers className="h-4 w-4 text-muted-foreground" />
                   <div className="flex flex-col">
                     <span className="text-xs text-muted-foreground">Workflows</span>
                     <span className="text-sm font-semibold tabular-nums text-foreground">{totalWorkflows}</span>
@@ -65,11 +65,11 @@ export default function LandingPage() {
               {/* Stats - Mobile */}
               <div className="flex sm:hidden items-center gap-3 text-sm">
                 <span className="flex items-center gap-1.5 text-muted-foreground">
-                  <CircleDot className="h-3.5 w-3.5 text-primary" />
+                  <Activity className="h-3.5 w-3.5 text-primary" />
                   <span className="font-medium text-foreground">{totalOpen}</span>
                 </span>
                 <span className="flex items-center gap-1.5 text-muted-foreground">
-                  <Grid3X3 className="h-3.5 w-3.5" />
+                  <Layers className="h-3.5 w-3.5" />
                   <span className="font-medium text-foreground">{totalWorkflows}</span>
                 </span>
               </div>
@@ -110,9 +110,9 @@ export default function LandingPage() {
               : `/${category.slug}`;
 
             return (
-              <Link key={category.slug} href={href} className="block">
-                <Card className="group relative h-full border border-border bg-card transition-all duration-200 hover:border-primary/40 hover:shadow-md">
-                  <CardContent className="flex flex-col p-5">
+              <Link key={category.slug} href={href} className="block h-full">
+                <Card className="group relative h-full flex flex-col border border-border bg-card transition-all duration-200 hover:border-primary/40 hover:shadow-md">
+                  <CardContent className="flex flex-1 flex-col p-5">
                     {/* Header: Icon + Title */}
                     <div className="flex items-start gap-4">
                       <div className="relative shrink-0">
@@ -129,21 +129,15 @@ export default function LandingPage() {
                         <h3 className="text-sm font-semibold text-foreground leading-tight">
                           {category.name}
                         </h3>
-                        <p className="mt-1 text-xs text-muted-foreground">
-                          {category.apps.length} workflow{category.apps.length !== 1 ? "s" : ""}
-                          {stats.pausedItems > 0 && (
-                            <span className="text-amber-600"> &middot; {stats.pausedItems} paused</span>
-                          )}
-                        </p>
                       </div>
                     </div>
 
                     {/* Workflow Tags */}
-                    <div className="mt-4 flex flex-wrap gap-1.5">
+                    <div className="mt-4 flex flex-1 flex-wrap content-start gap-1.5">
                       {category.apps.map((app) => (
                         <span
                           key={app.slug}
-                          className="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs text-secondary-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary"
+                          className="inline-flex h-fit items-center rounded-md bg-secondary px-2 py-1 text-xs text-secondary-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary"
                         >
                           {app.name}
                         </span>
@@ -151,11 +145,14 @@ export default function LandingPage() {
                     </div>
 
                     {/* Footer */}
-                    <div className="mt-4 flex items-center justify-end pt-3 border-t border-border/50">
-                      <span className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors group-hover:text-primary">
-                        View workflows
-                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                      </span>
+                    <div className="mt-4 flex items-center justify-between pt-3 border-t border-border">
+                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                        <span>{category.apps.length} workflow{category.apps.length !== 1 ? "s" : ""}</span>
+                        {stats.pausedItems > 0 && (
+                          <span className="text-amber-600">{stats.pausedItems} paused</span>
+                        )}
+                      </div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground/50 transition-all group-hover:translate-x-0.5 group-hover:text-primary" />
                     </div>
                   </CardContent>
                 </Card>
