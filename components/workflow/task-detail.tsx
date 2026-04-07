@@ -180,30 +180,29 @@ ${task.sender.split("@")[0].replace(".", " ")}`}
 
           {/* Extracted Fields — collapsible, default open */}
           <div className="border-b border-gray-100">
-            <button
-              onClick={() => setFieldsOpen(!fieldsOpen)}
-              className="w-full flex items-center justify-between px-4 py-2 hover:bg-gray-50 transition-colors"
-            >
-              <span className="text-xs font-medium text-gray-500">Extracted Fields</span>
-              <div className="flex items-center gap-2">
-                {fieldsOpen && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (editMode && Object.keys(editedFields).length > 0) {
-                        // save would go here
-                      }
-                      setEditMode(!editMode);
-                    }}
-                    className="flex items-center gap-1 text-[11px] text-gray-500 hover:text-gray-700"
-                  >
-                    <Pencil className="w-3 h-3" />
-                    {editMode ? "Done" : "Edit"}
-                  </button>
-                )}
+            <div className="flex items-center justify-between px-4 py-2">
+              <button
+                onClick={() => setFieldsOpen(!fieldsOpen)}
+                className="flex items-center gap-2 text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                <span>Extracted Fields</span>
                 {fieldsOpen ? <ChevronUp className="w-3.5 h-3.5 text-gray-400" /> : <ChevronDown className="w-3.5 h-3.5 text-gray-400" />}
-              </div>
-            </button>
+              </button>
+              {fieldsOpen && (
+                <button
+                  onClick={() => {
+                    if (editMode && Object.keys(editedFields).length > 0) {
+                      // save would go here
+                    }
+                    setEditMode(!editMode);
+                  }}
+                  className="flex items-center gap-1 text-[11px] text-gray-500 hover:text-gray-700"
+                >
+                  <Pencil className="w-3 h-3" />
+                  {editMode ? "Done" : "Edit"}
+                </button>
+              )}
+            </div>
             {fieldsOpen && (
               <div className="px-4 py-3">
                 {fieldGroups.map((group) => {

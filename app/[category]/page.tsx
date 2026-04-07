@@ -4,7 +4,7 @@ import { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCategoryBySlug, getCategoryStats, generateMockTasks } from "@/lib/mock-data";
-import { ArrowLeft, ArrowRight, Cpu, Globe } from "lucide-react";
+import { ArrowRight, Cpu, Globe, LayoutGrid } from "lucide-react";
 
 export default function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category: slug } = use(params);
@@ -26,31 +26,79 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b bg-card">
-        <div className="mx-auto max-w-7xl px-6 py-4">
-          <div className="flex items-center gap-4">
+      <header className="border-b bg-card sticky top-0 z-10">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            {/* Logo + Category */}
+            <div className="flex items-center gap-4">
+              <Link href="/" className="flex items-center gap-2.5">
+                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-gradient-to-br from-primary to-primary/80 shadow-sm">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="h-[18px] w-[18px]"
+                  >
+                    <path
+                      d="M12 3L4 7v6c0 4.5 3.4 8.7 8 10 4.6-1.3 8-5.5 8-10V7l-8-4z"
+                      fill="currentColor"
+                      className="text-primary-foreground/20"
+                    />
+                    <path
+                      d="M12 3L4 7v6c0 4.5 3.4 8.7 8 10 4.6-1.3 8-5.5 8-10V7l-8-4z"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-primary-foreground"
+                    />
+                    <path
+                      d="M8 12h8M12 8v8"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      className="text-primary-foreground"
+                    />
+                  </svg>
+                </div>
+                <span className="text-lg font-semibold tracking-tight text-foreground">
+                  Insura<span className="text-primary">Flow</span>
+                </span>
+              </Link>
+              <div className="h-6 w-px bg-border" />
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
+                  <Icon className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <h1 className="text-sm font-semibold text-foreground">{category.name}</h1>
+                  <p className="text-xs text-muted-foreground">
+                    {category.apps.length} workflows &middot; {stats.openItems} open
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* All Workflows Link */}
             <Link
               href="/"
-              className="flex h-8 w-8 items-center justify-center rounded-lg border text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <LayoutGrid className="h-4 w-4" />
+              <span className="hidden sm:inline">All Workflows</span>
             </Link>
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <Icon className="h-5 w-5" />
-            </div>
-            <div>
-              <h1 className="text-lg font-semibold tracking-[-0.025em]">{category.name}</h1>
-              <p className="text-xs tracking-[-0.01em] text-muted-foreground">
-                {category.apps.length} workflows &middot;{" "}
-                <span className="font-mono">{stats.openItems}</span> open items
-              </p>
-            </div>
           </div>
         </div>
       </header>
 
-      {/* Apps grid — full width, no sidebar */}
-      <main className="mx-auto max-w-7xl px-6 py-6">
+      {/* Apps grid */}
+      <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground">Select a Workflow</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Choose a workflow to view and manage tasks
+          </p>
+        </div>
+
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {category.apps.map((app) => {
             const tasks = generateMockTasks(app.slug, 8);
@@ -59,78 +107,63 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
             const doneCount = tasks.filter((t) => t.stage === "done").length;
 
             return (
-              <Link key={app.slug} href={`/${slug}/${app.slug}/intake`}>
-                <div className="group flex h-full cursor-pointer flex-col rounded-xl border bg-card p-5 shadow-sm transition-all hover:shadow-md hover:border-primary/30">
-                  {/* Title + badge */}
-                  <div className="flex items-start justify-between mb-2">
-                    <h3 className="text-sm font-semibold tracking-[-0.025em]">{app.name}</h3>
-                    <span
-                      className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                        app.approach === "Hybrid"
-                          ? "bg-sky-100 text-sky-700"
-                          : "bg-amber-100 text-amber-700"
-                      }`}
-                    >
-                      {app.approach}
-                    </span>
+              <Link key={app.slug} href={`/${slug}/${app.slug}/intake`} className="block h-full">
+                <div className="group h-full flex flex-col rounded-xl border border-border bg-card transition-all duration-200 hover:border-primary/40 hover:shadow-md">
+                  <div className="flex flex-col p-5">
+                    {/* Header: Title + Arrow */}
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-semibold text-foreground">{app.name}</h3>
+                        <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{app.description}</p>
+                      </div>
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-secondary transition-all group-hover:bg-primary">
+                        <ArrowRight className="h-4 w-4 text-muted-foreground transition-all group-hover:text-primary-foreground" />
+                      </div>
+                    </div>
+
+                    {/* Approach badge */}
+                    <div className="mt-3">
+                      <span
+                        className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${
+                          app.approach === "Hybrid"
+                            ? "bg-sky-50 text-sky-700"
+                            : "bg-amber-50 text-amber-700"
+                        }`}
+                      >
+                        {app.approach}
+                      </span>
+                    </div>
                   </div>
-                  <p className="text-xs tracking-[-0.01em] text-muted-foreground mb-3">
-                    {app.description}
-                  </p>
 
                   {/* Stage pipeline */}
-                  <div className="flex gap-3 text-[10px] mb-3">
-                    <div className="flex items-center gap-1">
-                      <div className="h-1.5 w-1.5 rounded-full bg-sky-400" />
-                      <span className="text-muted-foreground">Intake</span>
-                      <span className="font-mono font-semibold">{intakeCount}</span>
+                  <div className="flex flex-wrap gap-2 px-5 pb-4">
+                    <div className="flex items-center gap-1.5 rounded-md bg-sky-50 px-2 py-1">
+                      <div className="h-1.5 w-1.5 rounded-full bg-sky-500" />
+                      <span className="text-[11px] text-sky-700">Intake</span>
+                      <span className="text-[11px] font-semibold text-sky-900">{intakeCount}</span>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <div className="h-1.5 w-1.5 rounded-full bg-amber-400" />
-                      <span className="text-muted-foreground">Actions</span>
-                      <span className="font-mono font-semibold">{actionsCount}</span>
+                    <div className="flex items-center gap-1.5 rounded-md bg-amber-50 px-2 py-1">
+                      <div className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                      <span className="text-[11px] text-amber-700">Actions</span>
+                      <span className="text-[11px] font-semibold text-amber-900">{actionsCount}</span>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <div className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                      <span className="text-muted-foreground">Done</span>
-                      <span className="font-mono font-semibold">{doneCount}</span>
+                    <div className="flex items-center gap-1.5 rounded-md bg-emerald-50 px-2 py-1">
+                      <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                      <span className="text-[11px] text-emerald-700">Done</span>
+                      <span className="text-[11px] font-semibold text-emerald-900">{doneCount}</span>
                     </div>
-                  </div>
-
-                  {/* Platforms */}
-                  <div className="flex items-start gap-1.5 mb-2">
-                    <Globe className="mt-0.5 h-3 w-3 shrink-0 text-muted-foreground" />
-                    <div className="flex flex-wrap gap-1">
-                      {app.platforms.slice(0, 3).map((p) => (
-                        <span
-                          key={p}
-                          className="inline-flex items-center rounded-full bg-secondary px-2 py-0.5 text-[8px] font-medium text-muted-foreground"
-                        >
-                          {p}
-                        </span>
-                      ))}
-                      {app.platforms.length > 3 && (
-                        <span className="text-[8px] text-muted-foreground">
-                          +{app.platforms.length - 3}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Steps */}
-                  <div className="flex items-center gap-1.5 mb-3">
-                    <Cpu className="h-3 w-3 text-muted-foreground" />
-                    <span className="text-[10px] text-muted-foreground font-mono">
-                      {app.processSteps.length} steps
-                    </span>
                   </div>
 
                   {/* Footer */}
-                  <div className="mt-auto pt-2 border-t flex items-center justify-between text-[10px] text-muted-foreground">
-                    <span className="font-mono">
-                      {app.sopSources.length} SOP{app.sopSources.length > 1 ? "s" : ""}
-                    </span>
-                    <ArrowRight className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
+                  <div className="mt-auto flex items-center justify-between px-5 py-3 border-t border-border text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1.5">
+                      <Cpu className="h-3.5 w-3.5" />
+                      <span>{app.processSteps.length} steps</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Globe className="h-3.5 w-3.5" />
+                      <span>{app.platforms.length} platforms</span>
+                    </div>
                   </div>
                 </div>
               </Link>
