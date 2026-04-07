@@ -6,7 +6,7 @@ import {
   Inbox,
   ListChecks,
   FileOutput,
-  ArrowLeft,
+  ChevronLeft,
 } from "lucide-react";
 
 interface AppSidebarProps {
@@ -24,31 +24,24 @@ export function AppSidebar({ currentPath, basePath, appName }: AppSidebarProps) 
 
   return (
     <aside className="flex h-full w-[220px] flex-col border-r bg-card">
-      {/* Brand */}
-      <div className="flex h-12 shrink-0 items-center border-b px-4">
-        <Link href="/" className="text-sm font-semibold tracking-[-0.025em]">
+      {/* Brand + Workflow Name */}
+      <div className="shrink-0 border-b px-4 py-3">
+        <Link href="/" className="text-sm font-semibold tracking-tight">
           Insura<span className="text-primary">Flow</span>
         </Link>
+        <p className="mt-1 text-xs font-medium text-foreground truncate">{appName}</p>
       </div>
 
-      {/* Back + current app */}
-      <div className="px-3 pt-3">
+      {/* Back to Dashboard */}
+      <div className="px-3 py-3 border-b">
         <Link
           href="/"
-          className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+          className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
         >
-          <ArrowLeft className="h-3 w-3" />
-          Dashboard
+          <ChevronLeft className="h-3.5 w-3.5" />
+          <span>Back to Dashboard</span>
         </Link>
-        <div className="mt-3 px-3 pb-2">
-          <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
-            Workflow
-          </p>
-          <p className="text-xs font-semibold tracking-[-0.025em] mt-0.5 truncate">{appName}</p>
-        </div>
       </div>
-
-      <div className="mx-3 border-t" />
 
       {/* Primary nav — Intake, Actions, Output only */}
       <nav className="flex-1 px-3 pt-3">
