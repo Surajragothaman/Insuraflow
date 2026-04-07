@@ -100,7 +100,7 @@ export default function LandingPage() {
         </div>
 
         {/* Category Grid */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
           {categories.map((category) => {
             const stats = getCategoryStats(category);
             const Icon = category.icon;
@@ -110,7 +110,7 @@ export default function LandingPage() {
               : `/${category.slug}`;
 
             return (
-              <Link key={category.slug} href={href} className="block h-full">
+              <Link key={category.slug} href={href} className="block">
                 <Card className="group relative h-full flex flex-col border border-border bg-card transition-all duration-200 hover:border-primary/40 hover:shadow-md">
                   <CardContent className="flex flex-1 flex-col p-5">
                     {/* Header: Icon + Title */}
@@ -144,8 +144,8 @@ export default function LandingPage() {
                       ))}
                     </div>
 
-                    {/* Footer */}
-                    <div className="mt-4 flex items-center justify-between pt-3 border-t border-border">
+                    {/* Footer - pushed to bottom via mt-auto */}
+                    <div className="mt-auto flex items-center justify-between pt-4 border-t border-border">
                       <div className="flex items-center gap-3 text-xs text-muted-foreground">
                         <span>{category.apps.length} workflow{category.apps.length !== 1 ? "s" : ""}</span>
                         {stats.pausedItems > 0 && (
