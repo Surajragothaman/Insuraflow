@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { categories, getCategoryStats } from "@/lib/mock-data";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Activity, Layers } from "lucide-react";
+import { ArrowRight, CircleDot, Grid3X3 } from "lucide-react";
 
 export default function LandingPage() {
   const totalOpen = categories.reduce((sum, c) => sum + getCategoryStats(c).openItems, 0);
@@ -12,43 +12,76 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border/60 bg-card/80 backdrop-blur-sm sticky top-0 z-10">
-        <div className="mx-auto max-w-[1400px] px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-xl font-semibold tracking-tight text-foreground">
-                Insura<span className="text-primary">Flow</span>
-              </h1>
-              <p className="text-sm text-muted-foreground">
-                Insurance Operations Automation Platform
-              </p>
+      <header className="border-b border-border bg-card sticky top-0 z-10">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-5 w-5 text-primary-foreground"
+                >
+                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                  <path d="M2 17l10 5 10-5" />
+                  <path d="M2 12l10 5 10-5" />
+                </svg>
+              </div>
+              <div>
+                <h1 className="text-lg font-semibold tracking-tight text-foreground">
+                  InsuraFlow
+                </h1>
+                <p className="text-xs text-muted-foreground hidden sm:block">
+                  Operations Automation
+                </p>
+              </div>
             </div>
 
             {/* Stats & User */}
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 rounded-full border border-border/60 bg-background px-3 py-1.5 shadow-sm transition-colors hover:border-primary/20">
-                <Activity className="h-3.5 w-3.5 text-primary" />
-                <div className="flex flex-col">
-                  <span className="text-[9px] font-medium uppercase leading-none tracking-wider text-muted-foreground">Open</span>
-                  <span className="font-mono text-sm font-semibold leading-tight tabular-nums text-foreground">{totalOpen}</span>
+            <div className="flex items-center gap-2 sm:gap-4">
+              {/* Stats - Desktop */}
+              <div className="hidden sm:flex items-center gap-6 pr-4 border-r border-border">
+                <div className="flex items-center gap-2">
+                  <CircleDot className="h-4 w-4 text-primary" />
+                  <div className="flex flex-col">
+                    <span className="text-xs text-muted-foreground">Open</span>
+                    <span className="text-sm font-semibold tabular-nums text-foreground">{totalOpen}</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Grid3X3 className="h-4 w-4 text-muted-foreground" />
+                  <div className="flex flex-col">
+                    <span className="text-xs text-muted-foreground">Workflows</span>
+                    <span className="text-sm font-semibold tabular-nums text-foreground">{totalWorkflows}</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 rounded-full border border-border/60 bg-background px-3 py-1.5 shadow-sm transition-colors hover:border-primary/20">
-                <Layers className="h-3.5 w-3.5 text-muted-foreground" />
-                <div className="flex flex-col">
-                  <span className="text-[9px] font-medium uppercase leading-none tracking-wider text-muted-foreground">Workflows</span>
-                  <span className="font-mono text-sm font-semibold leading-tight tabular-nums text-foreground">{totalWorkflows}</span>
-                </div>
+              {/* Stats - Mobile */}
+              <div className="flex sm:hidden items-center gap-3 text-sm">
+                <span className="flex items-center gap-1.5 text-muted-foreground">
+                  <CircleDot className="h-3.5 w-3.5 text-primary" />
+                  <span className="font-medium text-foreground">{totalOpen}</span>
+                </span>
+                <span className="flex items-center gap-1.5 text-muted-foreground">
+                  <Grid3X3 className="h-3.5 w-3.5" />
+                  <span className="font-medium text-foreground">{totalWorkflows}</span>
+                </span>
               </div>
 
-              <div className="flex items-center gap-2.5 rounded-full border border-border/60 bg-background py-1 pl-1 pr-3 shadow-sm">
-                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-[10px] font-semibold text-primary-foreground ring-2 ring-primary/10">
+              {/* User Avatar */}
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
                   DF
                 </div>
-                <div className="hidden flex-col sm:flex">
-                  <span className="text-sm font-medium leading-tight text-foreground">Demo User</span>
-                  <span className="text-[10px] leading-none text-muted-foreground">Operator</span>
+                <div className="hidden sm:flex flex-col">
+                  <span className="text-sm font-medium text-foreground">Demo User</span>
+                  <span className="text-xs text-muted-foreground">Operator</span>
                 </div>
               </div>
             </div>
@@ -57,15 +90,17 @@ export default function LandingPage() {
       </header>
 
       {/* Main Content */}
-      <main className="mx-auto max-w-[1400px] px-6 py-8">
+      <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
         {/* Section Header */}
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold tracking-tight text-foreground">Process Categories</h2>
-          <p className="text-sm text-muted-foreground">{categories.length} categories across insurance operations</p>
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground">Process Categories</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {categories.length} categories across insurance operations
+          </p>
         </div>
 
         {/* Category Grid */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((category) => {
             const stats = getCategoryStats(category);
             const Icon = category.icon;
@@ -75,32 +110,40 @@ export default function LandingPage() {
               : `/${category.slug}`;
 
             return (
-              <Link key={category.slug} href={href} className="block h-full">
-                <Card className="group relative flex h-full cursor-pointer flex-col border border-border/60 bg-card shadow-sm transition-all duration-200 hover:border-primary/30 hover:shadow-md">
-                  <CardContent className="flex flex-1 flex-col p-4">
-                    {/* Icon & Badge */}
-                    <div className="relative mb-3 self-start">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary/15">
-                        <Icon className="h-5 w-5 text-primary" strokeWidth={1.75} />
+              <Link key={category.slug} href={href} className="block">
+                <Card className="group relative h-full border border-border bg-card transition-all duration-200 hover:border-primary/40 hover:shadow-md">
+                  <CardContent className="flex flex-col p-5">
+                    {/* Header: Icon + Title */}
+                    <div className="flex items-start gap-4">
+                      <div className="relative shrink-0">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 transition-colors group-hover:bg-primary/15">
+                          <Icon className="h-5 w-5 text-primary" strokeWidth={1.5} />
+                        </div>
+                        {stats.openItems > 0 && (
+                          <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[10px] font-bold text-primary-foreground ring-2 ring-card">
+                            {stats.openItems}
+                          </span>
+                        )}
                       </div>
-                      {stats.openItems > 0 && (
-                        <span className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground shadow-sm">
-                          {stats.openItems}
-                        </span>
-                      )}
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-semibold text-foreground leading-tight">
+                          {category.name}
+                        </h3>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          {category.apps.length} workflow{category.apps.length !== 1 ? "s" : ""}
+                          {stats.pausedItems > 0 && (
+                            <span className="text-amber-600"> &middot; {stats.pausedItems} paused</span>
+                          )}
+                        </p>
+                      </div>
                     </div>
 
-                    {/* Title */}
-                    <h3 className="text-sm font-semibold leading-snug tracking-tight text-foreground">
-                      {category.name}
-                    </h3>
-
-                    {/* Workflow Pills */}
-                    <div className="mt-2.5 flex flex-1 flex-wrap content-start gap-1.5">
+                    {/* Workflow Tags */}
+                    <div className="mt-4 flex flex-wrap gap-1.5">
                       {category.apps.map((app) => (
                         <span
                           key={app.slug}
-                          className="inline-flex items-center rounded-md border border-border/50 bg-muted/40 px-2 py-0.5 text-[10px] font-medium text-muted-foreground transition-colors group-hover:border-primary/20 group-hover:bg-primary/5"
+                          className="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs text-secondary-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary"
                         >
                           {app.name}
                         </span>
@@ -108,18 +151,11 @@ export default function LandingPage() {
                     </div>
 
                     {/* Footer */}
-                    <div className="mt-3 flex items-center justify-between border-t border-border/30 pt-2.5">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[11px] text-muted-foreground">
-                          {category.apps.length} workflow{category.apps.length !== 1 ? "s" : ""}
-                        </span>
-                        {stats.pausedItems > 0 && (
-                          <span className="font-mono text-[11px] font-medium text-amber-600">
-                            {stats.pausedItems} paused
-                          </span>
-                        )}
-                      </div>
-                      <ArrowRight className="h-3.5 w-3.5 text-muted-foreground/40 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-primary" />
+                    <div className="mt-4 flex items-center justify-end pt-3 border-t border-border/50">
+                      <span className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors group-hover:text-primary">
+                        View workflows
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                      </span>
                     </div>
                   </CardContent>
                 </Card>
