@@ -6,7 +6,7 @@ import {
   Inbox,
   ListChecks,
   FileOutput,
-  ChevronLeft,
+  LayoutGrid,
 } from "lucide-react";
 
 interface AppSidebarProps {
@@ -24,26 +24,38 @@ export function AppSidebar({ currentPath, basePath, appName }: AppSidebarProps) 
 
   return (
     <aside className="flex h-full w-[220px] flex-col border-r bg-card">
-      {/* Brand + Workflow Name */}
+      {/* Brand Header */}
       <div className="shrink-0 border-b px-4 py-3">
-        <Link href="/" className="text-sm font-semibold tracking-tight">
-          Insura<span className="text-primary">Flow</span>
+        <Link href="/" className="group flex items-center gap-2">
+          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4 text-primary-foreground"
+            >
+              <path d="M12 2L2 7l10 5 10-5-10-5z" />
+              <path d="M2 17l10 5 10-5" />
+              <path d="M2 12l10 5 10-5" />
+            </svg>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-semibold tracking-tight text-foreground">InsuraFlow</span>
+            <span className="text-[10px] text-muted-foreground group-hover:text-primary transition-colors">Dashboard</span>
+          </div>
         </Link>
-        <p className="mt-1 text-xs font-medium text-foreground truncate">{appName}</p>
       </div>
 
-      {/* Back to Dashboard */}
-      <div className="px-3 py-3 border-b">
-        <Link
-          href="/"
-          className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <ChevronLeft className="h-3.5 w-3.5" />
-          <span>Back to Dashboard</span>
-        </Link>
+      {/* Current Workflow */}
+      <div className="px-4 py-3 border-b">
+        <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Current Workflow</p>
+        <p className="mt-0.5 text-sm font-medium text-foreground truncate">{appName}</p>
       </div>
 
-      {/* Primary nav — Intake, Actions, Output only */}
+      {/* Primary nav */}
       <nav className="flex-1 px-3 pt-3">
         <div className="space-y-0.5">
           {mainNavItems.map((item) => {
@@ -66,6 +78,17 @@ export function AppSidebar({ currentPath, basePath, appName }: AppSidebarProps) 
           })}
         </div>
       </nav>
+
+      {/* Footer - All Workflows */}
+      <div className="shrink-0 border-t p-3">
+        <Link
+          href="/"
+          className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+        >
+          <LayoutGrid className="h-4 w-4" />
+          <span>All Workflows</span>
+        </Link>
+      </div>
     </aside>
   );
 }
