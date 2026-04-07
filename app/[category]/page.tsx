@@ -32,34 +32,6 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
             {/* Logo + Category */}
             <div className="flex items-center gap-4">
               <Link href="/" className="flex items-center gap-2.5">
-                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-gradient-to-br from-primary to-primary/80 shadow-sm">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className="h-[18px] w-[18px]"
-                  >
-                    <path
-                      d="M12 3L4 7v6c0 4.5 3.4 8.7 8 10 4.6-1.3 8-5.5 8-10V7l-8-4z"
-                      fill="currentColor"
-                      className="text-primary-foreground/20"
-                    />
-                    <path
-                      d="M12 3L4 7v6c0 4.5 3.4 8.7 8 10 4.6-1.3 8-5.5 8-10V7l-8-4z"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-primary-foreground"
-                    />
-                    <path
-                      d="M8 12h8M12 8v8"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      className="text-primary-foreground"
-                    />
-                  </svg>
-                </div>
                 <span className="text-lg font-semibold tracking-tight text-foreground">
                   Insura<span className="text-primary">Flow</span>
                 </span>

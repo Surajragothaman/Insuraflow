@@ -15,40 +15,10 @@ export default function LandingPage() {
       <header className="border-b border-border bg-card sticky top-0 z-10">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-md bg-gradient-to-br from-primary to-primary/80 shadow-sm">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="h-[18px] w-[18px]"
-                >
-                  <path
-                    d="M12 3L4 7v6c0 4.5 3.4 8.7 8 10 4.6-1.3 8-5.5 8-10V7l-8-4z"
-                    fill="currentColor"
-                    className="text-primary-foreground/20"
-                  />
-                  <path
-                    d="M12 3L4 7v6c0 4.5 3.4 8.7 8 10 4.6-1.3 8-5.5 8-10V7l-8-4z"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-primary-foreground"
-                  />
-                  <path
-                    d="M8 12h8M12 8v8"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    className="text-primary-foreground"
-                  />
-                </svg>
-              </div>
-              <h1 className="text-lg font-semibold tracking-tight text-foreground">
-                Insura<span className="text-primary">Flow</span>
-              </h1>
-            </div>
+            {/* Brand */}
+            <h1 className="text-lg font-semibold tracking-tight text-foreground">
+              Insura<span className="text-primary">Flow</span>
+            </h1>
 
             {/* Stats & User */}
             <div className="flex items-center gap-2 sm:gap-4">
