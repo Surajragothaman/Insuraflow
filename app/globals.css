@@ -37,9 +37,8 @@
     --sidebar-accent-foreground: oklch(0.2077 0.0398 265.7549);
     --sidebar-border: oklch(0.9288 0.0126 255.5078);
     --sidebar-ring: oklch(0.5461 0.2152 262.8809);
-    --font-sans: var(--font-sans), 'Plus Jakarta Sans', system-ui, sans-serif;
-    --font-serif: var(--font-serif), 'Lora', serif;
-    --font-mono: var(--font-mono), 'IBM Plex Mono', monospace;
+    --font-sans: var(--font-sans), 'Inter', system-ui, sans-serif;
+    --font-mono: var(--font-mono), 'JetBrains Mono', monospace;
     --shadow-2xs: 0px 2px 3px 0px hsl(0 0% 0% / 0.08);
     --shadow-xs: 0px 2px 3px 0px hsl(0 0% 0% / 0.08);
     --shadow-sm: 0px 2px 3px 0px hsl(0 0% 0% / 0.16), 0px 1px 2px -1px hsl(0 0% 0% / 0.16);
