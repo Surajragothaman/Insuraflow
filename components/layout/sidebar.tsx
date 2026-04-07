@@ -49,10 +49,9 @@ export function AppSidebar({ currentPath, basePath, appName }: AppSidebarProps) 
         </Link>
       </div>
 
-      {/* Current Workflow */}
+      {/* Workflow Name */}
       <div className="px-4 py-3 border-b">
-        <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Current Workflow</p>
-        <p className="mt-0.5 text-sm font-medium text-foreground truncate">{appName}</p>
+        <p className="text-sm font-medium text-foreground truncate">{appName}</p>
       </div>
 
       {/* Primary nav */}
