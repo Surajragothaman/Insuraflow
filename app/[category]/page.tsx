@@ -84,7 +84,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
           </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {category.apps.map((app) => {
             const tasks = generateMockTasks(app.slug, 8);
             const intakeCount = tasks.filter((t) => t.stage === "intake").length;
@@ -92,60 +92,61 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
             const doneCount = tasks.filter((t) => t.stage === "done").length;
 
             return (
-              <Link key={app.slug} href={`/${slug}/${app.slug}/intake`} className="block">
-                <div className="group relative h-full flex flex-col rounded-xl border border-border bg-card transition-all duration-200 hover:border-primary/40 hover:shadow-md">
-                  <div className="flex flex-1 flex-col p-5">
+              <Link key={app.slug} href={`/${slug}/${app.slug}/intake`} className="block h-full">
+                <div className="group h-full flex flex-col rounded-xl border border-border bg-card transition-all duration-200 hover:border-primary/40 hover:shadow-md">
+                  <div className="flex flex-col p-5">
                     {/* Header: Title + Arrow */}
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="text-sm font-semibold text-foreground">{app.name}</h3>
-                          <span
-                            className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[10px] font-medium ${
-                              app.approach === "Hybrid"
-                                ? "bg-sky-100 text-sky-700"
-                                : "bg-amber-100 text-amber-700"
-                            }`}
-                          >
-                            {app.approach}
-                          </span>
-                        </div>
-                        <p className="text-xs text-muted-foreground line-clamp-2">{app.description}</p>
+                        <h3 className="text-sm font-semibold text-foreground">{app.name}</h3>
+                        <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{app.description}</p>
                       </div>
                       <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-secondary transition-all group-hover:bg-primary">
                         <ArrowRight className="h-4 w-4 text-muted-foreground transition-all group-hover:text-primary-foreground" />
                       </div>
                     </div>
 
-                    {/* Stage pipeline */}
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      <div className="flex items-center gap-1.5 rounded-md bg-sky-50 px-2 py-1">
-                        <div className="h-2 w-2 rounded-full bg-sky-500" />
-                        <span className="text-xs text-sky-700">Intake</span>
-                        <span className="text-xs font-semibold text-sky-900">{intakeCount}</span>
+                    {/* Approach badge */}
+                    <div className="mt-3">
+                      <span
+                        className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${
+                          app.approach === "Hybrid"
+                            ? "bg-sky-50 text-sky-700"
+                            : "bg-amber-50 text-amber-700"
+                        }`}
+                      >
+                        {app.approach}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Stage pipeline - fixed height section */}
+                  <div className="px-5 pb-4">
+                    <div className="grid grid-cols-3 gap-2">
+                      <div className="flex flex-col items-center rounded-lg bg-sky-50 py-2">
+                        <span className="text-lg font-semibold text-sky-700">{intakeCount}</span>
+                        <span className="text-[10px] text-sky-600">Intake</span>
                       </div>
-                      <div className="flex items-center gap-1.5 rounded-md bg-amber-50 px-2 py-1">
-                        <div className="h-2 w-2 rounded-full bg-amber-500" />
-                        <span className="text-xs text-amber-700">Actions</span>
-                        <span className="text-xs font-semibold text-amber-900">{actionsCount}</span>
+                      <div className="flex flex-col items-center rounded-lg bg-amber-50 py-2">
+                        <span className="text-lg font-semibold text-amber-700">{actionsCount}</span>
+                        <span className="text-[10px] text-amber-600">Actions</span>
                       </div>
-                      <div className="flex items-center gap-1.5 rounded-md bg-emerald-50 px-2 py-1">
-                        <div className="h-2 w-2 rounded-full bg-emerald-500" />
-                        <span className="text-xs text-emerald-700">Done</span>
-                        <span className="text-xs font-semibold text-emerald-900">{doneCount}</span>
+                      <div className="flex flex-col items-center rounded-lg bg-emerald-50 py-2">
+                        <span className="text-lg font-semibold text-emerald-700">{doneCount}</span>
+                        <span className="text-[10px] text-emerald-600">Done</span>
                       </div>
                     </div>
+                  </div>
 
-                    {/* Footer */}
-                    <div className="mt-auto flex items-center gap-4 pt-4 border-t border-border text-xs text-muted-foreground">
-                      <div className="flex items-center gap-1.5">
-                        <Cpu className="h-3.5 w-3.5" />
-                        <span>{app.processSteps.length} steps</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <Globe className="h-3.5 w-3.5" />
-                        <span>{app.platforms.length} platforms</span>
-                      </div>
+                  {/* Footer */}
+                  <div className="mt-auto flex items-center justify-between px-5 py-3 border-t border-border text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1.5">
+                      <Cpu className="h-3.5 w-3.5" />
+                      <span>{app.processSteps.length} steps</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Globe className="h-3.5 w-3.5" />
+                      <span>{app.platforms.length} platforms</span>
                     </div>
                   </div>
                 </div>
