@@ -120,21 +120,22 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                     </div>
                   </div>
 
-                  {/* Stage pipeline - fixed height section */}
-                  <div className="px-5 pb-4">
-                    <div className="grid grid-cols-3 gap-2">
-                      <div className="flex flex-col items-center rounded-lg bg-sky-50 py-2">
-                        <span className="text-lg font-semibold text-sky-700">{intakeCount}</span>
-                        <span className="text-[10px] text-sky-600">Intake</span>
-                      </div>
-                      <div className="flex flex-col items-center rounded-lg bg-amber-50 py-2">
-                        <span className="text-lg font-semibold text-amber-700">{actionsCount}</span>
-                        <span className="text-[10px] text-amber-600">Actions</span>
-                      </div>
-                      <div className="flex flex-col items-center rounded-lg bg-emerald-50 py-2">
-                        <span className="text-lg font-semibold text-emerald-700">{doneCount}</span>
-                        <span className="text-[10px] text-emerald-600">Done</span>
-                      </div>
+                  {/* Stage pipeline */}
+                  <div className="flex flex-wrap gap-2 px-5 pb-4">
+                    <div className="flex items-center gap-1.5 rounded-md bg-sky-50 px-2 py-1">
+                      <div className="h-1.5 w-1.5 rounded-full bg-sky-500" />
+                      <span className="text-[11px] text-sky-700">Intake</span>
+                      <span className="text-[11px] font-semibold text-sky-900">{intakeCount}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 rounded-md bg-amber-50 px-2 py-1">
+                      <div className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                      <span className="text-[11px] text-amber-700">Actions</span>
+                      <span className="text-[11px] font-semibold text-amber-900">{actionsCount}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 rounded-md bg-emerald-50 px-2 py-1">
+                      <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                      <span className="text-[11px] text-emerald-700">Done</span>
+                      <span className="text-[11px] font-semibold text-emerald-900">{doneCount}</span>
                     </div>
                   </div>
 
