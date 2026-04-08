@@ -31,12 +31,10 @@ export function UserMenu() {
         type="button"
         onClick={() => {
           console.log("[v0] UserMenu onClick fired, open:", !open);
+          alert("Clicked! open: " + !open);
           setOpen(!open);
         }}
-        onMouseDown={() => {
-          console.log("[v0] UserMenu onMouseDown fired");
-        }}
-        className="flex items-center gap-2.5 pl-3 pr-2 h-10 border-l border-border cursor-pointer hover:bg-accent/50 transition-colors select-none relative z-50 rounded-r-md"
+        className="flex items-center gap-2.5 pl-3 pr-2 h-10 border-l border-border cursor-pointer hover:bg-accent/50 transition-colors select-none relative z-50 rounded-r-md bg-accent/20"
       >
         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground pointer-events-none">
           DF
