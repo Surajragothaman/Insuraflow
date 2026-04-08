@@ -16,7 +16,7 @@ export function ViewToggle({ title, subtitle, showBorder = false }: ViewTogglePr
 
   return (
     <div className={`bg-background sticky top-16 z-20 w-full ${showBorder ? "border-b border-border" : ""}`}>
-      <div className="flex h-12 items-center justify-between pl-4 sm:pl-6 lg:pl-8 pr-4 sm:pr-6 lg:pr-8">
+      <div className="flex py-3 items-center justify-between pl-4 sm:pl-6 lg:pl-8 pr-4 sm:pr-6 lg:pr-8">
         {/* Title */}
         {title && (
           <div>
