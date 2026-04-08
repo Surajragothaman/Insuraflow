@@ -282,18 +282,23 @@ export default function FlowPage() {
                                     </div>
                                     <div>
                                       <h3 className="text-sm font-semibold">{cat.name}</h3>
-                                      <p className="text-xs text-muted-foreground mt-0.5">
-                                        {cat.apps.length} workflow{cat.apps.length !== 1 ? "s" : ""}
-                                      </p>
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center gap-3">
-                                    {stats.openItems > 0 && (
-                                      <span className="flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-                                        {stats.openItems} open
-                                      </span>
-                                    )}
-                                    <ArrowRight className={`h-4 w-4 transition-transform ${isSelected ? "text-primary rotate-90" : "text-muted-foreground"}`} />
+                                                <p className="text-xs text-muted-foreground mt-0.5">
+                                                        {cat.apps.length} workflow{cat.apps.length !== 1 ? "s" : ""}
+                                                      </p>
+                                                    </div>
+                                                  </div>
+                                                  <div className="flex items-center gap-2">
+                                                    {stats.pausedItems > 0 && (
+                                                      <span className="flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
+                                                        {stats.pausedItems} paused
+                                                      </span>
+                                                    )}
+                                                    {stats.openItems > 0 && (
+                                                      <span className="flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                                                        {stats.openItems} open
+                                                      </span>
+                                                    )}
+                                                    <ArrowRight className={`h-4 w-4 transition-transform ${isSelected ? "text-primary rotate-90" : "text-muted-foreground"}`} />
                                   </div>
                                 </div>
                               </CardContent>
@@ -339,6 +344,9 @@ export default function FlowPage() {
                               <h3 className="text-sm font-semibold">{cat.name}</h3>
                               <p className="text-xs text-muted-foreground mt-0.5">
                                 {cat.apps.length} workflow{cat.apps.length !== 1 ? "s" : ""}
+                                {stats.pausedItems > 0 && (
+                                  <span className="text-amber-600"> · {stats.pausedItems} paused</span>
+                                )}
                               </p>
                             </CardContent>
                           </Card>
@@ -398,11 +406,18 @@ export default function FlowPage() {
                                         </p>
                                       </div>
                                     </div>
-                                    {stats.openItems > 0 && (
-                                      <span className="flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
-                                        {stats.openItems} open
-                                      </span>
-                                    )}
+                                    <div className="flex items-center gap-2">
+                                      {stats.pausedItems > 0 && (
+                                        <span className="flex items-center gap-1 rounded-full bg-amber-200 px-2 py-0.5 text-xs font-medium text-amber-800">
+                                          {stats.pausedItems} paused
+                                        </span>
+                                      )}
+                                      {stats.openItems > 0 && (
+                                        <span className="flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
+                                          {stats.openItems} open
+                                        </span>
+                                      )}
+                                    </div>
                                   </div>
                                 </CardContent>
                               </Card>
@@ -448,6 +463,9 @@ export default function FlowPage() {
                                 <h3 className="text-sm font-semibold">{cat.name}</h3>
                                 <p className="text-xs text-muted-foreground mt-1">
                                   {cat.apps.length} workflow{cat.apps.length !== 1 ? "s" : ""}
+                                  {stats.pausedItems > 0 && (
+                                    <span className="text-amber-600"> · {stats.pausedItems} paused</span>
+                                  )}
                                 </p>
                               </CardContent>
                             </Card>
