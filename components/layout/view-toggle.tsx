@@ -28,7 +28,7 @@ export function ViewToggle({ title, subtitle, showBorder = false }: ViewTogglePr
         )}
         
         {/* View toggle */}
-        <div className="flex items-center gap-1 ml-auto">
+        <div className="flex items-start gap-1 ml-auto -mt-2 -mr-2">
           <Link
             href="/"
             className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs transition-colors ${
