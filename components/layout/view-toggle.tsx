@@ -27,11 +27,20 @@ export function ViewToggle({ title, subtitle, showBorder = false }: ViewTogglePr
           </div>
         )}
         
-        {/* View toggle */}
-        <div className="flex items-start gap-1 ml-auto -mt-2 -mr-2">
+        {/* View toggle - sliding switcher */}
+        <div className="relative flex items-center ml-auto -mt-2 -mr-2 bg-muted rounded-full p-1">
+          {/* Sliding background indicator */}
+          <div 
+            className={`absolute h-7 bg-card rounded-full shadow-sm transition-all duration-200 ease-in-out ${
+              isFlowView 
+                ? "left-[calc(50%)] w-[calc(50%-4px)]" 
+                : "left-1 w-[calc(50%-4px)]"
+            }`}
+          />
+          
           <Link
             href="/"
-            className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs transition-colors ${
+            className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors rounded-full ${
               !isFlowView
                 ? "font-medium text-foreground"
                 : "text-muted-foreground hover:text-foreground"
@@ -42,7 +51,7 @@ export function ViewToggle({ title, subtitle, showBorder = false }: ViewTogglePr
           </Link>
           <Link
             href="/flow"
-            className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs transition-colors ${
+            className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 text-xs transition-colors rounded-full ${
               isFlowView
                 ? "font-medium text-foreground"
                 : "text-muted-foreground hover:text-foreground"
