@@ -110,59 +110,82 @@ export default function FlowPage() {
       <header className="border-b border-border bg-card sticky top-0 z-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            <h1 className="text-lg font-semibold tracking-tight text-foreground">
-              Insura<span className="text-primary">Flow</span>
-            </h1>
-
-            <div className="flex items-center gap-2 sm:gap-4">
-              {/* View toggle */}
-              <div className="flex items-center rounded-lg border border-border bg-muted/50 p-0.5">
+            {/* Brand + View Toggle */}
+            <div className="flex items-center gap-6">
+              <h1 className="text-lg font-semibold tracking-tight text-foreground">
+                Insura<span className="text-primary">Flow</span>
+              </h1>
+              
+              {/* View toggle - underline tabs style */}
+              <div className="hidden sm:flex items-center border-b-2 border-transparent -mb-[1px]">
                 <Link
                   href="/"
-                  className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors border-b-2 border-transparent -mb-[2px]"
                 >
-                  <LayoutGrid className="h-3.5 w-3.5" />
-                  <span className="hidden sm:inline">Grid</span>
+                  <LayoutGrid className="h-4 w-4" />
+                  Grid
                 </Link>
-                <div className="flex items-center gap-1.5 rounded-md bg-card px-3 py-1.5 text-xs font-medium text-foreground shadow-sm">
-                  <GitBranch className="h-3.5 w-3.5" />
-                  <span className="hidden sm:inline">Flow</span>
+                <div className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-foreground border-b-2 border-primary -mb-[2px]">
+                  <GitBranch className="h-4 w-4" />
+                  Flow
+                </div>
+              </div>
+            </div>
+
+            {/* Stats & User */}
+            <div className="flex items-center gap-4">
+              {/* Stats - Desktop */}
+              <div className="hidden md:flex items-center gap-5">
+                <div className="flex items-center gap-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+                    <Activity className="h-4 w-4 text-primary" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-semibold tabular-nums text-foreground">{totalOpen}</span>
+                    <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Open</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-100">
+                    <PauseCircle className="h-4 w-4 text-amber-600" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-semibold tabular-nums text-foreground">{totalPaused}</span>
+                    <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Paused</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-secondary">
+                    <Layers className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-semibold tabular-nums text-foreground">{totalWorkflows}</span>
+                    <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Workflows</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Stats */}
-              <div className="hidden sm:flex items-center gap-6 px-4 border-x border-border">
-                <div className="flex items-center gap-2">
-                  <Activity className="h-4 w-4 text-primary" />
-                  <div className="flex flex-col">
-                    <span className="text-xs text-muted-foreground">Open</span>
-                    <span className="text-sm font-semibold tabular-nums">{totalOpen}</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <PauseCircle className="h-4 w-4 text-amber-500" />
-                  <div className="flex flex-col">
-                    <span className="text-xs text-muted-foreground">Paused</span>
-                    <span className="text-sm font-semibold tabular-nums">{totalPaused}</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Layers className="h-4 w-4 text-muted-foreground" />
-                  <div className="flex flex-col">
-                    <span className="text-xs text-muted-foreground">Workflows</span>
-                    <span className="text-sm font-semibold tabular-nums">{totalWorkflows}</span>
-                  </div>
+              {/* Divider */}
+              <div className="hidden md:block h-8 w-px bg-border" />
+
+              {/* Mobile view toggle */}
+              <div className="flex sm:hidden items-center rounded-lg border border-border bg-muted/50 p-0.5">
+                <Link href="/" className="flex items-center justify-center rounded-md p-1.5">
+                  <LayoutGrid className="h-4 w-4 text-muted-foreground" />
+                </Link>
+                <div className="flex items-center justify-center rounded-md bg-card p-1.5 shadow-sm">
+                  <GitBranch className="h-4 w-4 text-foreground" />
                 </div>
               </div>
 
-              {/* User */}
+              {/* User Avatar */}
               <div className="flex items-center gap-2.5">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
                   DF
                 </div>
-                <div className="hidden sm:flex flex-col">
-                  <span className="text-sm font-medium">Demo User</span>
-                  <span className="text-xs text-muted-foreground">Operator</span>
+                <div className="hidden lg:flex flex-col">
+                  <span className="text-sm font-medium text-foreground">Demo User</span>
+                  <span className="text-[10px] text-muted-foreground">Operator</span>
                 </div>
               </div>
             </div>
