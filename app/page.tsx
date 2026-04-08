@@ -16,7 +16,7 @@ export default function LandingPage() {
       {/* Header */}
       <header className="border-b border-border bg-card sticky top-0 z-10">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+          <div className="flex h-16 items-center justify-between gap-4">
             {/* Brand */}
             <h1 className="text-lg font-semibold tracking-tight text-foreground">
               Insura<span className="text-primary">Flow</span>

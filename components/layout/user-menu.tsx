@@ -23,7 +23,7 @@ export function UserMenu() {
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          className="flex items-center gap-2.5 pl-3 pr-2 h-10 border-l border-border cursor-pointer hover:bg-accent/50 transition-colors select-none rounded-r-md focus:outline-none"
+          className="flex items-center gap-2.5 pl-3 pr-2 h-10 border-l border-border cursor-pointer hover:bg-accent/50 transition-colors select-none focus:outline-none"
         >
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
             DF
@@ -34,7 +34,7 @@ export function UserMenu() {
           </div>
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48">
+      <DropdownMenuContent align="end" sideOffset={8} className="w-52">
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">Demo User</p>
