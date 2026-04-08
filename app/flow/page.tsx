@@ -349,75 +349,70 @@ export default function FlowPage() {
                 )}
 
                 {activePhase.type === "timed" && (
-                  <div className="relative">
-                    {/* Timeline */}
-                    <div className="absolute left-[60px] top-6 bottom-6 w-0.5 bg-gradient-to-b from-amber-400 to-amber-200" />
-                    
-                    <div className="space-y-4">
-                      {activePhase.nodes.map((node, idx) => {
-                        const cat = getCat(node.slug);
-                        if (!cat) return null;
-                        const stats = getCategoryStats(cat);
-                        const Icon = cat.icon;
-                        const isSelected = selectedNode === cat.slug;
+                  <div className="space-y-3">
+                    {activePhase.nodes.map((node, idx) => {
+                      const cat = getCat(node.slug);
+                      if (!cat) return null;
+                      const stats = getCategoryStats(cat);
+                      const Icon = cat.icon;
+                      const isSelected = selectedNode === cat.slug;
+                      const isLast = idx === activePhase.nodes.length - 1;
 
-                        return (
-                          <div key={node.slug} className="flex items-center gap-4">
-                            {/* Day marker */}
-                            <div className="w-[48px] text-right shrink-0">
-                              <span className="font-mono text-sm font-bold text-amber-600">
-                                {node.daysBefore}d
-                              </span>
-                            </div>
-                            
-                            {/* Timeline dot */}
-                            <div className="relative z-10 shrink-0">
-                              <div className="h-4 w-4 rounded-full bg-amber-500 ring-4 ring-amber-100" />
-                            </div>
-                            
-                            {/* Card */}
-                            <button
-                              onClick={() => setSelectedNode(isSelected ? null : cat.slug)}
-                              className="flex-1 text-left"
-                            >
-                              <Card className={`transition-all ${
-                                isSelected 
-                                  ? "border-primary shadow-md ring-1 ring-primary/20" 
-                                  : "border-border hover:border-amber-300 hover:shadow-sm"
-                              }`}>
-                                <CardContent className="p-4">
-                                  <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-100">
-                                        <Icon className="h-4 w-4 text-amber-600" strokeWidth={1.5} />
-                                      </div>
-                                      <div>
-                                        <h3 className="text-sm font-semibold">{cat.name}</h3>
-                                        <p className="text-xs text-muted-foreground">
-                                          {cat.apps.length} workflow{cat.apps.length !== 1 ? "s" : ""}
-                                        </p>
-                                      </div>
+                      return (
+                        <div key={node.slug} className="flex items-stretch gap-4">
+                          {/* Day marker + Timeline */}
+                          <div className="flex flex-col items-center shrink-0 w-14">
+                            <span className="font-mono text-sm font-bold text-amber-600 mb-2">
+                              {node.daysBefore}d
+                            </span>
+                            <div className="h-3 w-3 rounded-full bg-amber-500 ring-2 ring-amber-200 shrink-0 z-10" />
+                            {!isLast && (
+                              <div className="flex-1 w-0.5 bg-gradient-to-b from-amber-400 to-amber-200 mt-1" />
+                            )}
+                          </div>
+                          
+                          {/* Card */}
+                          <button
+                            onClick={() => setSelectedNode(isSelected ? null : cat.slug)}
+                            className="flex-1 text-left pb-3"
+                          >
+                            <Card className={`transition-all ${
+                              isSelected 
+                                ? "border-primary shadow-md ring-1 ring-primary/20" 
+                                : "border-border hover:border-amber-300 hover:shadow-sm"
+                            }`}>
+                              <CardContent className="p-4">
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-3">
+                                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-100">
+                                      <Icon className="h-4 w-4 text-amber-600" strokeWidth={1.5} />
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                      {stats.pausedItems > 0 && (
-                                        <span className="flex items-center gap-1 rounded-full bg-amber-200 px-2 py-0.5 text-xs font-medium text-amber-800">
-                                          {stats.pausedItems} paused
-                                        </span>
-                                      )}
-                                      {stats.openItems > 0 && (
-                                        <span className="flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
-                                          {stats.openItems} open
-                                        </span>
-                                      )}
+                                    <div>
+                                      <h3 className="text-sm font-semibold">{cat.name}</h3>
+                                      <p className="text-xs text-muted-foreground">
+                                        {cat.apps.length} workflow{cat.apps.length !== 1 ? "s" : ""}
+                                      </p>
                                     </div>
                                   </div>
-                                </CardContent>
-                              </Card>
-                            </button>
-                          </div>
-                        );
-                      })}
-                    </div>
+                                  <div className="flex items-center gap-2">
+                                    {stats.pausedItems > 0 && (
+                                      <span className="flex items-center gap-1 rounded-full bg-amber-200 px-2 py-0.5 text-xs font-medium text-amber-800">
+                                        {stats.pausedItems} paused
+                                      </span>
+                                    )}
+                                    {stats.openItems > 0 && (
+                                      <span className="flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
+                                        {stats.openItems} open
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              </CardContent>
+                            </Card>
+                          </button>
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
 
