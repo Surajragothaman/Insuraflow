@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { categories, getCategoryStats, generateMockTasks } from "@/lib/mock-data";
 import { Card, CardContent } from "@/components/ui/card";
+import { UserMenu } from "@/components/layout/user-menu";
 import {
   ArrowRight,
   Activity,
@@ -151,16 +152,8 @@ export default function FlowPage() {
                 </div>
               </div>
 
-              {/* User Avatar */}
-              <div className="flex items-center gap-2.5 pl-3 border-l border-border">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
-                  DF
-                </div>
-                <div className="hidden md:flex flex-col">
-                  <span className="text-sm font-medium text-foreground">Demo User</span>
-                  <span className="text-[10px] text-muted-foreground">Operator</span>
-                </div>
-              </div>
+              {/* User Menu */}
+              <UserMenu />
             </div>
           </div>
         </div>
