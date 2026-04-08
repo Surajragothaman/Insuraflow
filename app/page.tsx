@@ -3,67 +3,14 @@
 import Link from "next/link";
 import { categories, getCategoryStats } from "@/lib/mock-data";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Activity, Layers, LayoutGrid, GitBranch, PauseCircle } from "lucide-react";
-import { UserMenu } from "@/components/layout/user-menu";
+import { ArrowRight } from "lucide-react";
+import { Header } from "@/components/layout/header";
 
 export default function LandingPage() {
-  const totalOpen = categories.reduce((sum, c) => sum + getCategoryStats(c).openItems, 0);
-  const totalPaused = categories.reduce((sum, c) => sum + getCategoryStats(c).pausedItems, 0);
-  const totalWorkflows = categories.reduce((sum, c) => sum + c.apps.length, 0);
-
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
-      <header className="border-b border-border bg-card sticky top-0 z-10 w-full">
-        <div className="mx-auto max-w-6xl w-full px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between gap-4">
-            {/* Brand */}
-            <h1 className="text-lg font-semibold tracking-tight text-foreground">
-              Insura<span className="text-primary">Flow</span>
-            </h1>
-
-            {/* View toggle + Stats & User */}
-            <div className="flex items-center gap-3 sm:gap-4">
-              {/* View toggle */}
-              <div className="flex items-center rounded-lg border border-border bg-muted/50 p-0.5">
-                <div className="flex items-center gap-1.5 rounded-md bg-card px-2.5 py-1.5 text-xs font-medium text-foreground shadow-sm">
-                  <LayoutGrid className="h-3.5 w-3.5" />
-                  <span className="hidden sm:inline">Grid</span>
-                </div>
-                <Link
-                  href="/flow"
-                  className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <GitBranch className="h-3.5 w-3.5" />
-                  <span className="hidden sm:inline">Flow</span>
-                </Link>
-              </div>
-
-              {/* Stats - Desktop */}
-              <div className="hidden sm:flex items-center gap-4 pl-3 border-l border-border">
-                <div className="flex items-center gap-1.5">
-                  <Activity className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-semibold tabular-nums text-foreground">{totalOpen}</span>
-                  <span className="text-xs text-muted-foreground">open</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <PauseCircle className="h-4 w-4 text-amber-500" />
-                  <span className="text-sm font-semibold tabular-nums text-foreground">{totalPaused}</span>
-                  <span className="text-xs text-muted-foreground">paused</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <Layers className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm font-semibold tabular-nums text-foreground">{totalWorkflows}</span>
-                  <span className="text-xs text-muted-foreground">workflows</span>
-                </div>
-              </div>
-
-              {/* User Menu */}
-              <UserMenu />
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto">
