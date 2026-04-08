@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { categories, getCategoryStats } from "@/lib/mock-data";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Activity, Layers } from "lucide-react";
+import { ArrowRight, Activity, Layers, LayoutGrid, GitBranch } from "lucide-react";
 
 export default function LandingPage() {
   const totalOpen = categories.reduce((sum, c) => sum + getCategoryStats(c).openItems, 0);
@@ -20,8 +20,22 @@ export default function LandingPage() {
               Insura<span className="text-primary">Flow</span>
             </h1>
 
-            {/* Stats & User */}
+            {/* View toggle + Stats & User */}
             <div className="flex items-center gap-2 sm:gap-4">
+              {/* View toggle */}
+              <div className="flex items-center rounded-lg border border-border bg-muted/50 p-0.5 mr-1">
+                <div className="flex items-center gap-1.5 rounded-md bg-card px-2.5 py-1 text-xs font-medium text-foreground shadow-sm">
+                  <LayoutGrid className="h-3.5 w-3.5" />
+                  Grid
+                </div>
+                <Link
+                  href="/flow"
+                  className="flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <GitBranch className="h-3.5 w-3.5" />
+                  Flow
+                </Link>
+              </div>
               {/* Stats - Desktop */}
               <div className="hidden sm:flex items-center gap-6 pr-4 border-r border-border">
                 <div className="flex items-center gap-2">
