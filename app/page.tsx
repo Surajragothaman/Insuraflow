@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { categories, getCategoryStats } from "@/lib/mock-data";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Activity, Layers, LayoutGrid, GitBranch } from "lucide-react";
+import { ArrowRight, Activity, Layers, LayoutGrid, GitBranch, PauseCircle } from "lucide-react";
 
 export default function LandingPage() {
   const totalOpen = categories.reduce((sum, c) => sum + getCategoryStats(c).openItems, 0);
+  const totalPaused = categories.reduce((sum, c) => sum + getCategoryStats(c).pausedItems, 0);
   const totalWorkflows = categories.reduce((sum, c) => sum + c.apps.length, 0);
 
   return (
@@ -21,59 +22,49 @@ export default function LandingPage() {
             </h1>
 
             {/* View toggle + Stats & User */}
-            <div className="flex items-center gap-2 sm:gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
               {/* View toggle */}
-              <div className="flex items-center rounded-lg border border-border bg-muted/50 p-0.5 mr-1">
-                <div className="flex items-center gap-1.5 rounded-md bg-card px-2.5 py-1 text-xs font-medium text-foreground shadow-sm">
+              <div className="flex items-center rounded-lg border border-border bg-muted/50 p-0.5">
+                <div className="flex items-center gap-1.5 rounded-md bg-card px-2.5 py-1.5 text-xs font-medium text-foreground shadow-sm">
                   <LayoutGrid className="h-3.5 w-3.5" />
-                  Grid
+                  <span className="hidden sm:inline">Grid</span>
                 </div>
                 <Link
                   href="/flow"
-                  className="flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                  className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <GitBranch className="h-3.5 w-3.5" />
-                  Flow
+                  <span className="hidden sm:inline">Flow</span>
                 </Link>
               </div>
-              {/* Stats - Desktop */}
-              <div className="hidden sm:flex items-center gap-6 pr-4 border-r border-border">
-                <div className="flex items-center gap-2">
-                  <Activity className="h-4 w-4 text-primary" />
-                  <div className="flex flex-col">
-                    <span className="text-xs text-muted-foreground">Open</span>
-                    <span className="text-sm font-semibold tabular-nums text-foreground">{totalOpen}</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Layers className="h-4 w-4 text-muted-foreground" />
-                  <div className="flex flex-col">
-                    <span className="text-xs text-muted-foreground">Workflows</span>
-                    <span className="text-sm font-semibold tabular-nums text-foreground">{totalWorkflows}</span>
-                  </div>
-                </div>
-              </div>
 
-              {/* Stats - Mobile */}
-              <div className="flex sm:hidden items-center gap-3 text-sm">
-                <span className="flex items-center gap-1.5 text-muted-foreground">
-                  <Activity className="h-3.5 w-3.5 text-primary" />
-                  <span className="font-medium text-foreground">{totalOpen}</span>
-                </span>
-                <span className="flex items-center gap-1.5 text-muted-foreground">
-                  <Layers className="h-3.5 w-3.5" />
-                  <span className="font-medium text-foreground">{totalWorkflows}</span>
-                </span>
+              {/* Stats - Desktop */}
+              <div className="hidden sm:flex items-center gap-4 pl-3 border-l border-border">
+                <div className="flex items-center gap-1.5">
+                  <Activity className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-semibold tabular-nums text-foreground">{totalOpen}</span>
+                  <span className="text-xs text-muted-foreground">open</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <PauseCircle className="h-4 w-4 text-amber-500" />
+                  <span className="text-sm font-semibold tabular-nums text-foreground">{totalPaused}</span>
+                  <span className="text-xs text-muted-foreground">paused</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Layers className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm font-semibold tabular-nums text-foreground">{totalWorkflows}</span>
+                  <span className="text-xs text-muted-foreground">workflows</span>
+                </div>
               </div>
 
               {/* User Avatar */}
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2.5 pl-3 border-l border-border">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
                   DF
                 </div>
-                <div className="hidden sm:flex flex-col">
+                <div className="hidden md:flex flex-col">
                   <span className="text-sm font-medium text-foreground">Demo User</span>
-                  <span className="text-xs text-muted-foreground">Operator</span>
+                  <span className="text-[10px] text-muted-foreground">Operator</span>
                 </div>
               </div>
             </div>
