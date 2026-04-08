@@ -5,6 +5,7 @@ import { useState } from "react";
 import { categories, getCategoryStats, generateMockTasks } from "@/lib/mock-data";
 import { Card, CardContent } from "@/components/ui/card";
 import { Header } from "@/components/layout/header";
+import { ViewToggle } from "@/components/layout/view-toggle";
 import {
   ArrowRight,
   X,
@@ -100,6 +101,9 @@ export default function FlowPage() {
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <Header />
+
+      {/* View Toggle */}
+      <ViewToggle />
 
       {/* Phase Navigation - Horizontal Flow */}
       <div className="border-b border-border bg-card/50">

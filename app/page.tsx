@@ -5,12 +5,16 @@ import { categories, getCategoryStats } from "@/lib/mock-data";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import { Header } from "@/components/layout/header";
+import { ViewToggle } from "@/components/layout/view-toggle";
 
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <Header />
+      
+      {/* View Toggle */}
+      <ViewToggle />
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto">
