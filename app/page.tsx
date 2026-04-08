@@ -12,10 +12,10 @@ export default function LandingPage() {
   const totalWorkflows = categories.reduce((sum, c) => sum + c.apps.length, 0);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
-      <header className="border-b border-border bg-card sticky top-0 z-10">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <header className="border-b border-border bg-card sticky top-0 z-10 w-full">
+        <div className="mx-auto max-w-6xl w-full px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between gap-4">
             {/* Brand */}
             <h1 className="text-lg font-semibold tracking-tight text-foreground">
@@ -66,7 +66,8 @@ export default function LandingPage() {
       </header>
 
       {/* Main Content */}
-      <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-1 overflow-auto">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
         {/* Section Header */}
         <div className="mb-8">
           <h2 className="text-xl font-semibold tracking-tight text-foreground">Process Categories</h2>
@@ -137,6 +138,7 @@ export default function LandingPage() {
               </Link>
             );
           })}
+        </div>
         </div>
       </main>
     </div>
