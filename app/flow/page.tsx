@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import {
   ArrowRight,
   Activity,
+  Layers,
   LayoutGrid,
   GitBranch,
   X,
@@ -131,17 +132,19 @@ export default function FlowPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header — same as landing page */}
+      {/* Header — matches landing page */}
       <header className="border-b border-border bg-card sticky top-0 z-10">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-14 items-center justify-between">
+          <div className="flex h-16 items-center justify-between">
+            {/* Brand */}
             <h1 className="text-lg font-semibold tracking-tight text-foreground">
               Insura<span className="text-primary">Flow</span>
             </h1>
 
-            <div className="flex items-center gap-3">
+            {/* View toggle + Stats & User */}
+            <div className="flex items-center gap-2 sm:gap-4">
               {/* View toggle */}
-              <div className="flex items-center rounded-lg border border-border bg-muted/50 p-0.5">
+              <div className="flex items-center rounded-lg border border-border bg-muted/50 p-0.5 mr-1">
                 <Link
                   href="/"
                   className="flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
@@ -155,21 +158,44 @@ export default function FlowPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 rounded-full border border-border/60 bg-background px-3 py-1.5 shadow-sm">
-                <Activity className="h-3.5 w-3.5 text-primary" />
-                <div className="flex flex-col">
-                  <span className="text-[9px] font-medium uppercase leading-none tracking-wider text-muted-foreground">Open</span>
-                  <span className="font-mono text-sm font-semibold leading-tight tabular-nums">{totalOpen}</span>
+              {/* Stats - Desktop */}
+              <div className="hidden sm:flex items-center gap-6 pr-4 border-r border-border">
+                <div className="flex items-center gap-2">
+                  <Activity className="h-4 w-4 text-primary" />
+                  <div className="flex flex-col">
+                    <span className="text-xs text-muted-foreground">Open</span>
+                    <span className="text-sm font-semibold tabular-nums text-foreground">{totalOpen}</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Layers className="h-4 w-4 text-muted-foreground" />
+                  <div className="flex flex-col">
+                    <span className="text-xs text-muted-foreground">Workflows</span>
+                    <span className="text-sm font-semibold tabular-nums text-foreground">{categories.reduce((sum, c) => sum + c.apps.length, 0)}</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2.5 rounded-full border border-border/60 bg-background py-1 pl-1 pr-3 shadow-sm">
-                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-[10px] font-semibold text-primary-foreground">
+              {/* Stats - Mobile */}
+              <div className="flex sm:hidden items-center gap-3 text-sm">
+                <span className="flex items-center gap-1.5 text-muted-foreground">
+                  <Activity className="h-3.5 w-3.5 text-primary" />
+                  <span className="font-medium text-foreground">{totalOpen}</span>
+                </span>
+                <span className="flex items-center gap-1.5 text-muted-foreground">
+                  <Layers className="h-3.5 w-3.5" />
+                  <span className="font-medium text-foreground">{categories.reduce((sum, c) => sum + c.apps.length, 0)}</span>
+                </span>
+              </div>
+
+              {/* User Avatar */}
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
                   DF
                 </div>
-                <div className="hidden flex-col sm:flex">
-                  <span className="text-sm font-medium leading-tight">Demo User</span>
-                  <span className="text-[10px] leading-none text-muted-foreground">Operator</span>
+                <div className="hidden sm:flex flex-col">
+                  <span className="text-sm font-medium text-foreground">Demo User</span>
+                  <span className="text-xs text-muted-foreground">Operator</span>
                 </div>
               </div>
             </div>
@@ -341,7 +367,7 @@ export default function FlowPage() {
 
         {/* Detail sidebar */}
         {selectedCategory && (
-          <div className="fixed right-0 top-[56px] bottom-0 w-[340px] border-l border-border bg-card overflow-auto z-10">
+          <div className="fixed right-0 top-16 bottom-0 w-[340px] border-l border-border bg-card overflow-auto z-10">
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-border sticky top-0 bg-card">
               <div className="flex items-center gap-2 min-w-0">
@@ -489,53 +515,54 @@ function FlowCard({
   return (
     <button onClick={onClick} className="text-left w-full">
       <Card
-        className={`group cursor-pointer transition-all duration-200 ${
+        className={`group cursor-pointer transition-all duration-200 bg-card ${
           isSelected
-            ? "border-primary/40 shadow-md ring-1 ring-primary/20"
-            : "border-border/60 shadow-sm hover:border-primary/30 hover:shadow-md"
+            ? "border-primary shadow-md ring-1 ring-primary/20"
+            : "border-border hover:border-primary/40 hover:shadow-md"
         }`}
       >
-        <CardContent className={compact ? "p-3" : "p-3 min-w-[160px]"}>
-          {/* Icon + badge */}
-          <div className="flex items-start justify-between mb-1.5">
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary/10">
-              <Icon className="h-3.5 w-3.5 text-primary" strokeWidth={1.75} />
+        <CardContent className={compact ? "p-3" : "p-4 min-w-[150px]"}>
+          {/* Header: Icon + Title + Badge */}
+          <div className="flex items-start gap-2.5">
+            <div className="relative shrink-0">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary/15">
+                <Icon className="h-4 w-4 text-primary" strokeWidth={1.5} />
+              </div>
+              {stats.openItems > 0 && (
+                <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[9px] font-bold text-primary-foreground ring-2 ring-card">
+                  {stats.openItems}
+                </span>
+              )}
             </div>
-            {stats.openItems > 0 && (
-              <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[9px] font-bold text-primary-foreground">
-                {stats.openItems}
-              </span>
-            )}
+            <div className="flex-1 min-w-0 pt-0.5">
+              <h4 className="text-xs font-semibold leading-tight text-foreground truncate">
+                {cat.name}
+              </h4>
+              <p className="text-[10px] text-muted-foreground mt-0.5">
+                {cat.apps.length} workflow{cat.apps.length !== 1 ? "s" : ""}
+                {stats.pausedItems > 0 && (
+                  <span className="text-amber-600"> · {stats.pausedItems} paused</span>
+                )}
+              </p>
+            </div>
           </div>
 
-          {/* Title */}
-          <h4 className="text-[11px] font-semibold leading-snug tracking-tight text-foreground">
-            {cat.name}
-          </h4>
-
-          {/* Pills */}
-          <div className="mt-1.5 flex flex-wrap gap-1">
-            {cat.apps.map((app) => (
-              <span
-                key={app.slug}
-                className="inline-flex items-center rounded border border-border/50 bg-muted/40 px-1.5 py-0.5 text-[9px] font-medium text-muted-foreground"
-              >
-                {app.name}
-              </span>
-            ))}
-          </div>
-
-          {/* Footer */}
-          <div className="mt-1.5 flex items-center gap-2 pt-1 border-t border-border/30">
-            <span className="font-mono text-[9px] text-muted-foreground">
-              {cat.apps.length} workflow{cat.apps.length !== 1 ? "s" : ""}
-            </span>
-            {stats.pausedItems > 0 && (
-              <span className="font-mono text-[9px] font-medium text-amber-600">
-                {stats.pausedItems} paused
-              </span>
-            )}
-          </div>
+          {/* Workflow Pills - only show if not compact */}
+          {!compact && cat.apps.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-1">
+              {cat.apps.slice(0, 3).map((app) => (
+                <span
+                  key={app.slug}
+                  className="inline-flex items-center rounded-md bg-secondary px-1.5 py-0.5 text-[10px] text-secondary-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary"
+                >
+                  {app.name}
+                </span>
+              ))}
+              {cat.apps.length > 3 && (
+                <span className="text-[10px] text-muted-foreground">+{cat.apps.length - 3}</span>
+              )}
+            </div>
+          )}
         </CardContent>
       </Card>
     </button>
