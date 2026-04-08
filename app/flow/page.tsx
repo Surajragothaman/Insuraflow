@@ -105,7 +105,8 @@ export default function FlowPage() {
       {/* View Toggle with Title */}
       <ViewToggle 
         title="Policy Lifecycle" 
-        subtitle="End-to-end insurance workflow phases" 
+        subtitle="End-to-end insurance workflow phases"
+        showBorder 
       />
 
       {/* Phase Navigation - Horizontal Flow */}
