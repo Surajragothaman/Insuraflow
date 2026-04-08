@@ -11,6 +11,7 @@ import {
   LayoutGrid,
   GitBranch,
   X,
+  ChevronRight,
   Clock,
   AlertCircle,
 } from "lucide-react";
@@ -160,41 +161,47 @@ export default function FlowPage() {
         </div>
       </header>
 
-      {/* Phase Navigation - Full Width Banner */}
+      {/* Phase Navigation - Horizontal Flow */}
       <div className="border-b border-border bg-card/50">
-        <div className="grid grid-cols-4 divide-x divide-border">
-          {phases.map((phase) => {
-            const phaseCats = phase.nodes.map((n) => getCat(n.slug)).filter(Boolean);
-            const phaseOpen = phaseCats.reduce((sum, c) => sum + getCategoryStats(c!).openItems, 0);
-            const isActive = selectedPhase === phase.id;
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center py-4 overflow-x-auto">
+            {phases.map((phase, idx) => {
+              const phaseCats = phase.nodes.map((n) => getCat(n.slug)).filter(Boolean);
+              const phaseOpen = phaseCats.reduce((sum, c) => sum + getCategoryStats(c!).openItems, 0);
+              const isActive = selectedPhase === phase.id;
 
-            return (
-              <button
-                key={phase.id}
-                onClick={() => {
-                  setSelectedPhase(phase.id);
-                  setSelectedNode(null);
-                }}
-                className={`relative flex flex-col items-center justify-center py-5 transition-all ${
-                  isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-transparent text-foreground hover:bg-secondary/50"
-                }`}
-              >
-                <span className="text-sm font-semibold">{phase.shortLabel}</span>
-                <span className={`text-xs mt-0.5 ${isActive ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
-                  {phaseCats.length} processes
-                </span>
-                {phaseOpen > 0 && (
-                  <span className={`absolute top-2 right-2 flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[10px] font-bold ${
-                    isActive ? "bg-card text-primary" : "bg-primary text-primary-foreground"
-                  }`}>
-                    {phaseOpen}
-                  </span>
-                )}
-              </button>
-            );
-          })}
+              return (
+                <div key={phase.id} className="flex items-center shrink-0">
+                  <button
+                    onClick={() => {
+                      setSelectedPhase(phase.id);
+                      setSelectedNode(null);
+                    }}
+                    className={`relative flex flex-col items-center px-6 py-3 rounded-xl transition-all ${
+                      isActive
+                        ? "bg-primary text-primary-foreground shadow-md"
+                        : "bg-secondary/50 text-foreground hover:bg-secondary"
+                    }`}
+                  >
+                    <span className="text-sm font-semibold">{phase.shortLabel}</span>
+                    <span className={`text-xs mt-0.5 ${isActive ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
+                      {phaseCats.length} processes
+                    </span>
+                    {phaseOpen > 0 && (
+                      <span className={`absolute -top-1.5 -right-1.5 flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[10px] font-bold ${
+                        isActive ? "bg-card text-primary" : "bg-primary text-primary-foreground"
+                      }`}>
+                        {phaseOpen}
+                      </span>
+                    )}
+                  </button>
+                  {idx < phases.length - 1 && (
+                    <ChevronRight className="h-5 w-5 text-muted-foreground/30 mx-3 shrink-0" />
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
