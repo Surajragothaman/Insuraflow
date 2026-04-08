@@ -23,14 +23,14 @@ export function UserMenu() {
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          className="flex items-center gap-2.5 pl-3 pr-2 h-10 border-l border-border cursor-pointer hover:bg-accent/50 transition-colors select-none focus:outline-none"
+          className="flex items-center gap-2 px-2 h-10 border-l border-border cursor-pointer hover:bg-accent/50 transition-colors select-none focus:outline-none"
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground flex-shrink-0">
             DF
           </div>
-          <div className="hidden md:flex flex-col text-left">
-            <span className="text-sm font-medium text-foreground leading-tight">Demo User</span>
-            <span className="text-[10px] text-muted-foreground leading-none">Operator</span>
+          <div className="hidden md:flex flex-col gap-0.5 text-left">
+            <span className="text-sm font-medium text-foreground">Demo User</span>
+            <span className="text-[10px] text-muted-foreground">Operator</span>
           </div>
         </button>
       </DropdownMenuTrigger>
