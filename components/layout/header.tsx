@@ -38,9 +38,6 @@ export function Header() {
             </div>
           </div>
 
-          {/* Divider */}
-          <div className="hidden sm:block h-8 w-px bg-border" />
-
           {/* User Menu */}
           <UserMenu />
         </div>
