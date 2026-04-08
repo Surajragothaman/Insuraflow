@@ -14,6 +14,7 @@ import {
   ChevronRight,
   Clock,
   AlertCircle,
+  PauseCircle,
 } from "lucide-react";
 
 // ─── Flow phases ───────────────────────────────────────────────────
@@ -97,6 +98,7 @@ export default function FlowPage() {
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
 
   const totalOpen = categories.reduce((sum, c) => sum + getCategoryStats(c).openItems, 0);
+  const totalPaused = categories.reduce((sum, c) => sum + getCategoryStats(c).pausedItems, 0);
   const totalWorkflows = categories.reduce((sum, c) => sum + c.apps.length, 0);
 
   const activePhase = phases.find((p) => p.id === selectedPhase);
@@ -135,6 +137,13 @@ export default function FlowPage() {
                   <div className="flex flex-col">
                     <span className="text-xs text-muted-foreground">Open</span>
                     <span className="text-sm font-semibold tabular-nums">{totalOpen}</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <PauseCircle className="h-4 w-4 text-amber-500" />
+                  <div className="flex flex-col">
+                    <span className="text-xs text-muted-foreground">Paused</span>
+                    <span className="text-sm font-semibold tabular-nums">{totalPaused}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">

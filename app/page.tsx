@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { categories, getCategoryStats } from "@/lib/mock-data";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Activity, Layers, LayoutGrid, GitBranch } from "lucide-react";
+import { ArrowRight, Activity, Layers, LayoutGrid, GitBranch, PauseCircle } from "lucide-react";
 
 export default function LandingPage() {
   const totalOpen = categories.reduce((sum, c) => sum + getCategoryStats(c).openItems, 0);
+  const totalPaused = categories.reduce((sum, c) => sum + getCategoryStats(c).pausedItems, 0);
   const totalWorkflows = categories.reduce((sum, c) => sum + c.apps.length, 0);
 
   return (
@@ -46,6 +47,13 @@ export default function LandingPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
+                  <PauseCircle className="h-4 w-4 text-amber-500" />
+                  <div className="flex flex-col">
+                    <span className="text-xs text-muted-foreground">Paused</span>
+                    <span className="text-sm font-semibold tabular-nums text-foreground">{totalPaused}</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
                   <Layers className="h-4 w-4 text-muted-foreground" />
                   <div className="flex flex-col">
                     <span className="text-xs text-muted-foreground">Workflows</span>
@@ -59,6 +67,10 @@ export default function LandingPage() {
                 <span className="flex items-center gap-1.5 text-muted-foreground">
                   <Activity className="h-3.5 w-3.5 text-primary" />
                   <span className="font-medium text-foreground">{totalOpen}</span>
+                </span>
+                <span className="flex items-center gap-1.5 text-muted-foreground">
+                  <PauseCircle className="h-3.5 w-3.5 text-amber-500" />
+                  <span className="font-medium text-foreground">{totalPaused}</span>
                 </span>
                 <span className="flex items-center gap-1.5 text-muted-foreground">
                   <Layers className="h-3.5 w-3.5" />
