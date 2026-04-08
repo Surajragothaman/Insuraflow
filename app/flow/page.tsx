@@ -14,6 +14,7 @@ import {
   ChevronRight,
   Clock,
   AlertCircle,
+  RotateCcw,
 } from "lucide-react";
 
 // ─── Flow phases ───────────────────────────────────────────────────
