@@ -28,7 +28,10 @@ export function UserMenu() {
     <div className="relative" ref={ref}>
       {/* Trigger */}
       <button
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          console.log("[v0] UserMenu clicked, open:", !open);
+          setOpen(!open);
+        }}
         className="flex items-center gap-2.5 pl-3 border-l border-border cursor-pointer hover:opacity-80 transition-opacity"
       >
         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
