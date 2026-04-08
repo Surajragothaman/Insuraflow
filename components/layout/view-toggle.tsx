@@ -4,15 +4,30 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutGrid, GitBranch } from "lucide-react";
 
-export function ViewToggle() {
+interface ViewToggleProps {
+  title?: string;
+  subtitle?: string;
+}
+
+export function ViewToggle({ title, subtitle }: ViewToggleProps) {
   const pathname = usePathname();
   const isFlowView = pathname === "/flow";
 
   return (
-    <div className="border-b border-border bg-background sticky top-16 z-20 w-full">
-      <div className="flex h-10 items-center justify-end pr-4 sm:pr-6 lg:pr-8">
+    <div className="bg-background sticky top-16 z-20 w-full">
+      <div className="flex h-12 items-center justify-between pl-4 sm:pl-6 lg:pl-8 pr-4 sm:pr-6 lg:pr-8">
+        {/* Title */}
+        {title && (
+          <div>
+            <h2 className="text-lg font-semibold tracking-tight text-foreground">{title}</h2>
+            {subtitle && (
+              <p className="text-xs text-muted-foreground">{subtitle}</p>
+            )}
+          </div>
+        )}
+        
         {/* View toggle */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 ml-auto">
           <Link
             href="/"
             className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs transition-colors ${

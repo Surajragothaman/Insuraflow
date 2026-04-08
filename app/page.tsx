@@ -13,20 +13,15 @@ export default function LandingPage() {
       {/* Header */}
       <Header />
       
-      {/* View Toggle */}
-      <ViewToggle />
+      {/* View Toggle with Title */}
+      <ViewToggle 
+        title="Process Categories" 
+        subtitle={`${categories.length} categories across insurance operations`} 
+      />
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
-        {/* Section Header */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground">Process Categories</h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {categories.length} categories across insurance operations
-          </p>
-        </div>
-
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-6">
         {/* Category Grid */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
           {categories.map((category) => {

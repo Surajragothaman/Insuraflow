@@ -102,8 +102,11 @@ export default function FlowPage() {
       {/* Header */}
       <Header />
 
-      {/* View Toggle */}
-      <ViewToggle />
+      {/* View Toggle with Title */}
+      <ViewToggle 
+        title="Policy Lifecycle" 
+        subtitle="End-to-end insurance workflow phases" 
+      />
 
       {/* Phase Navigation - Horizontal Flow */}
       <div className="border-b border-border bg-card/50">
