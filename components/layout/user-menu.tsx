@@ -25,9 +25,10 @@ export function UserMenu() {
   }, []);
 
   return (
-    <div className="relative" ref={ref}>
+    <div className="relative z-20" ref={ref}>
       {/* Trigger */}
       <button
+        type="button"
         onClick={() => {
           console.log("[v0] UserMenu clicked, open:", !open);
           setOpen(!open);
