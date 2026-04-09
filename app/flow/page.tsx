@@ -109,42 +109,39 @@ export default function FlowPage() {
         showBorder 
       />
 
-      {/* Phase Navigation - Horizontal Flow */}
-      <div className="border-b border-border bg-card/50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center py-4 overflow-x-auto">
+      {/* Phase Navigation - Compact Horizontal Tabs */}
+      <div className="bg-background">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center py-3 gap-1">
             {phases.map((phase, idx) => {
               const phaseCats = phase.nodes.map((n) => getCat(n.slug)).filter(Boolean);
               const phaseOpen = phaseCats.reduce((sum, c) => sum + getCategoryStats(c!).openItems, 0);
               const isActive = selectedPhase === phase.id;
 
               return (
-                <div key={phase.id} className="flex items-center shrink-0">
+                <div key={phase.id} className="flex items-center">
                   <button
                     onClick={() => {
                       setSelectedPhase(phase.id);
                       setSelectedNode(null);
                     }}
-                    className={`relative flex flex-col items-center px-6 py-3 rounded-xl transition-all ${
+                    className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
                       isActive
-                        ? "bg-primary text-primary-foreground shadow-md"
-                        : "bg-secondary/50 text-foreground hover:bg-secondary"
+                        ? "bg-primary text-primary-foreground shadow-sm"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                     }`}
                   >
-                    <span className="text-sm font-semibold">{phase.shortLabel}</span>
-                    <span className={`text-xs mt-0.5 ${isActive ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
-                      {phaseCats.length} processes
-                    </span>
+                    <span>{phase.shortLabel}</span>
                     {phaseOpen > 0 && (
-                      <span className={`absolute -top-1.5 -right-1.5 flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[10px] font-bold ${
-                        isActive ? "bg-card text-primary" : "bg-primary text-primary-foreground"
+                      <span className={`flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-semibold ${
+                        isActive ? "bg-primary-foreground/20 text-primary-foreground" : "bg-primary/10 text-primary"
                       }`}>
                         {phaseOpen}
                       </span>
                     )}
                   </button>
                   {idx < phases.length - 1 && (
-                    <ChevronRight className="h-5 w-5 text-muted-foreground/30 mx-3 shrink-0" />
+                    <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/30 mx-0.5 shrink-0" />
                   )}
                 </div>
               );
@@ -156,15 +153,15 @@ export default function FlowPage() {
       {/* Main Content */}
       <div className="flex flex-1 overflow-auto">
         {/* Process List */}
-        <div className={`flex-1 transition-all ${selectedNode ? "mr-[380px]" : ""}`}>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+        <div className={`flex-1 transition-all ${selectedNode ? "mr-[360px]" : ""}`}>
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-6">
             {activePhase && (
               <>
                 {/* Phase Header */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h2 className="text-xl font-semibold tracking-tight">{activePhase.label}</h2>
-                    <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${
+                <div className="mb-5">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h2 className="text-base font-semibold tracking-tight">{activePhase.label}</h2>
+                    <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium ${
                       activePhase.type === "sequential" ? "bg-blue-50 text-blue-700" :
                       activePhase.type === "parallel" ? "bg-emerald-50 text-emerald-700" :
                       activePhase.type === "timed" ? "bg-amber-50 text-amber-700" :
@@ -172,16 +169,16 @@ export default function FlowPage() {
                     }`}>
                       {activePhase.type === "sequential" && "Sequential"}
                       {activePhase.type === "parallel" && "Parallel"}
-                      {activePhase.type === "timed" && <><Clock className="h-3 w-3" /> Timed</>}
-                      {activePhase.type === "exception" && <><AlertCircle className="h-3 w-3" /> Exception</>}
+                      {activePhase.type === "timed" && <><Clock className="h-2.5 w-2.5" /> Timed</>}
+                      {activePhase.type === "exception" && <><AlertCircle className="h-2.5 w-2.5" /> Exception</>}
                     </span>
                   </div>
-                  <p className="text-sm text-muted-foreground">{activePhase.description}</p>
+                  <p className="text-xs text-muted-foreground">{activePhase.description}</p>
                 </div>
 
                 {/* Process Cards */}
                 {activePhase.type === "sequential" && (
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     {activePhase.nodes.map((node, idx) => {
                       const cat = getCat(node.slug);
                       if (!cat) return null;
@@ -190,16 +187,16 @@ export default function FlowPage() {
                       const isSelected = selectedNode === cat.slug;
 
                       return (
-                        <div key={node.slug} className="flex items-start gap-4">
+                        <div key={node.slug} className="flex items-start gap-3">
                           {/* Step indicator */}
-                          <div className="flex flex-col items-center shrink-0 pt-4">
-                            <div className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
-                              isSelected ? "bg-primary text-primary-foreground" : "bg-secondary text-foreground"
+                          <div className="flex flex-col items-center shrink-0 pt-2.5">
+                            <div className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold ${
+                              isSelected ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
                             }`}>
                               {idx + 1}
                             </div>
                             {idx < activePhase.nodes.length - 1 && (
-                              <div className="w-px h-full min-h-[40px] bg-border mt-2" />
+                              <div className="w-px h-full min-h-[28px] bg-border mt-1.5" />
                             )}
                           </div>
                           
@@ -210,34 +207,34 @@ export default function FlowPage() {
                           >
                             <Card className={`transition-all ${
                               isSelected 
-                                ? "border-primary shadow-md ring-1 ring-primary/20" 
-                                : "border-border hover:border-primary/40 hover:shadow-sm"
+                                ? "border-primary shadow-sm ring-1 ring-primary/20" 
+                                : "border-border hover:border-primary/40"
                             }`}>
-                              <CardContent className="p-4">
-                                <div className="flex items-start justify-between">
-                                  <div className="flex items-start gap-3">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                                      <Icon className="h-5 w-5 text-primary" strokeWidth={1.5} />
+                              <CardContent className="p-3">
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-2.5">
+                                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10">
+                                      <Icon className="h-4 w-4 text-primary" strokeWidth={1.5} />
                                     </div>
                                     <div>
-                                      <h3 className="text-sm font-semibold">{cat.name}</h3>
-                                                <p className="text-xs text-muted-foreground mt-0.5">
-                                                        {cat.apps.length} workflow{cat.apps.length !== 1 ? "s" : ""}
-                                                      </p>
-                                                    </div>
-                                                  </div>
-                                                  <div className="flex items-center gap-2">
-                                                    {stats.pausedItems > 0 && (
-                                                      <span className="flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
-                                                        {stats.pausedItems} paused
-                                                      </span>
-                                                    )}
-                                                    {stats.openItems > 0 && (
-                                                      <span className="flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-                                                        {stats.openItems} open
-                                                      </span>
-                                                    )}
-                                                    <ArrowRight className={`h-4 w-4 transition-transform ${isSelected ? "text-primary rotate-90" : "text-muted-foreground"}`} />
+                                      <h3 className="text-xs font-semibold">{cat.name}</h3>
+                                      <p className="text-[10px] text-muted-foreground">
+                                        {cat.apps.length} workflow{cat.apps.length !== 1 ? "s" : ""}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center gap-1.5">
+                                    {stats.pausedItems > 0 && (
+                                      <span className="flex items-center gap-0.5 rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700">
+                                        {stats.pausedItems}
+                                      </span>
+                                    )}
+                                    {stats.openItems > 0 && (
+                                      <span className="flex items-center gap-0.5 rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium text-primary">
+                                        {stats.openItems}
+                                      </span>
+                                    )}
+                                    <ArrowRight className={`h-3.5 w-3.5 transition-transform ${isSelected ? "text-primary rotate-90" : "text-muted-foreground"}`} />
                                   </div>
                                 </div>
                               </CardContent>
@@ -250,7 +247,7 @@ export default function FlowPage() {
                 )}
 
                 {activePhase.type === "parallel" && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                     {activePhase.nodes.map((node) => {
                       const cat = getCat(node.slug);
                       if (!cat) return null;
@@ -266,31 +263,31 @@ export default function FlowPage() {
                         >
                           <Card className={`h-full transition-all ${
                             isSelected 
-                              ? "border-primary shadow-md ring-1 ring-primary/20" 
-                              : "border-border hover:border-primary/40 hover:shadow-sm"
+                              ? "border-primary shadow-sm ring-1 ring-primary/20" 
+                              : "border-border hover:border-primary/40"
                           }`}>
-                            <CardContent className="p-4">
-                              <div className="flex items-start justify-between">
-                                <div className="flex items-start gap-3">
-                                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100">
-                                    <Icon className="h-5 w-5 text-emerald-600" strokeWidth={1.5} />
+                            <CardContent className="p-3">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2.5">
+                                  <div className="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-100">
+                                    <Icon className="h-4 w-4 text-emerald-600" strokeWidth={1.5} />
                                   </div>
                                   <div>
-                                    <h3 className="text-sm font-semibold">{cat.name}</h3>
-                                    <p className="text-xs text-muted-foreground mt-0.5">
+                                    <h3 className="text-xs font-semibold">{cat.name}</h3>
+                                    <p className="text-[10px] text-muted-foreground">
                                       {cat.apps.length} workflow{cat.apps.length !== 1 ? "s" : ""}
                                     </p>
                                   </div>
                                 </div>
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-1.5">
                                   {stats.pausedItems > 0 && (
-                                    <span className="flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
-                                      {stats.pausedItems} paused
+                                    <span className="flex items-center rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700">
+                                      {stats.pausedItems}
                                     </span>
                                   )}
                                   {stats.openItems > 0 && (
-                                    <span className="flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700">
-                                      {stats.openItems} open
+                                    <span className="flex items-center rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700">
+                                      {stats.openItems}
                                     </span>
                                   )}
                                 </div>
@@ -304,7 +301,7 @@ export default function FlowPage() {
                 )}
 
                 {activePhase.type === "timed" && (
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     {activePhase.nodes.map((node, idx) => {
                       const cat = getCat(node.slug);
                       if (!cat) return null;
@@ -314,50 +311,50 @@ export default function FlowPage() {
                       const isLast = idx === activePhase.nodes.length - 1;
 
                       return (
-                        <div key={node.slug} className="flex items-stretch gap-4">
+                        <div key={node.slug} className="flex items-stretch gap-3">
                           {/* Day marker + Timeline */}
-                          <div className="flex flex-col items-center shrink-0 w-14">
-                            <span className="font-mono text-sm font-bold text-amber-600 mb-2">
+                          <div className="flex flex-col items-center shrink-0 w-10">
+                            <span className="font-mono text-[10px] font-bold text-amber-600 mb-1">
                               {node.daysBefore}d
                             </span>
-                            <div className="h-3 w-3 rounded-full bg-amber-500 ring-2 ring-amber-200 shrink-0 z-10" />
+                            <div className="h-2 w-2 rounded-full bg-amber-500 ring-2 ring-amber-200 shrink-0 z-10" />
                             {!isLast && (
-                              <div className="flex-1 w-0.5 bg-gradient-to-b from-amber-400 to-amber-200 mt-1" />
+                              <div className="flex-1 w-px bg-gradient-to-b from-amber-400 to-amber-200 mt-1" />
                             )}
                           </div>
                           
                           {/* Card */}
                           <button
                             onClick={() => setSelectedNode(isSelected ? null : cat.slug)}
-                            className="flex-1 text-left pb-3"
+                            className="flex-1 text-left pb-2"
                           >
                             <Card className={`transition-all ${
                               isSelected 
-                                ? "border-primary shadow-md ring-1 ring-primary/20" 
-                                : "border-border hover:border-primary/40 hover:shadow-sm"
+                                ? "border-primary shadow-sm ring-1 ring-primary/20" 
+                                : "border-border hover:border-primary/40"
                             }`}>
-                              <CardContent className="p-4">
-                                <div className="flex items-start justify-between">
-                                  <div className="flex items-start gap-3">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100">
-                                      <Icon className="h-5 w-5 text-amber-600" strokeWidth={1.5} />
+                              <CardContent className="p-3">
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-2.5">
+                                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-amber-100">
+                                      <Icon className="h-4 w-4 text-amber-600" strokeWidth={1.5} />
                                     </div>
                                     <div>
-                                      <h3 className="text-sm font-semibold">{cat.name}</h3>
-                                      <p className="text-xs text-muted-foreground mt-0.5">
+                                      <h3 className="text-xs font-semibold">{cat.name}</h3>
+                                      <p className="text-[10px] text-muted-foreground">
                                         {cat.apps.length} workflow{cat.apps.length !== 1 ? "s" : ""}
                                       </p>
                                     </div>
                                   </div>
-                                  <div className="flex items-center gap-2">
+                                  <div className="flex items-center gap-1.5">
                                     {stats.pausedItems > 0 && (
-                                      <span className="flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
-                                        {stats.pausedItems} paused
+                                      <span className="flex items-center rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700">
+                                        {stats.pausedItems}
                                       </span>
                                     )}
                                     {stats.openItems > 0 && (
-                                      <span className="flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
-                                        {stats.openItems} open
+                                      <span className="flex items-center rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700">
+                                        {stats.openItems}
                                       </span>
                                     )}
                                   </div>
